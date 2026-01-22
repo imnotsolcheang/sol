@@ -3,17 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的遊戲館</title>
+    <title>Sol Cheang</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #1a1a2e;
             color: white;
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
         }
-        h1 { margin-bottom: 30px; }
-        .games { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        h1 { 
+            margin-bottom: 40px;
+            color: #4dabf7;
+        }
+        
+        /* 分類樣式 */
+        .category {
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .category-title {
+            font-size: 1.5em;
+            color: #ffa94d;
+            margin-bottom: 20px;
+            text-align: left;
+            border-bottom: 2px solid #3d3d5c;
+            padding-bottom: 10px;
+        }
+        
+        /* 遊戲卡片樣式 */
+        .games-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
         .game-card {
             background: #2d2d44;
             padding: 25px 35px;
@@ -21,27 +47,86 @@
             text-decoration: none;
             color: white;
             transition: 0.3s;
+            min-width: 150px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .game-card:hover { background: #3d3d5c; transform: scale(1.05); }
-        .icon { font-size: 2em; }
+        .game-card:hover { 
+            background: #3d3d5c; 
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        .icon { 
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .game-name {
+            font-size: 1.1em;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 600px) {
+            .game-card {
+                padding: 20px 25px;
+                min-width: 120px;
+            }
+            .category-title {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>🎮 我的遊戲館</h1>
-    <div class="games">
-        <a href="game1.html" class="game-card">
-            <div class="icon">🎯</div>
-            <div>貪食蛇遊戲</div>
-        </a>
-        <a href="game2.html" class="game-card">
-            <div class="icon">✊</div>
-            <div>2048</div>
-        </a>
-        <!-- 加更多遊戲 -->
-         <a href="game3.html" class="game-card">
-            <div class="icon">✊</div>
-            <div>數獨</div>
-        </a>
+    <h1>🎮 Sol Cheang</h1>
+    
+    <!-- 經典遊戲分類 -->
+    <div class="category">
+        <h2 class="category-title">🎯 經典遊戲</h2>
+        <div class="games-container">
+            <a href="game1.html" class="game-card">
+                <div class="icon">🐍</div>
+                <div class="game-name">貪食蛇遊戲</div>
+            </a>
+            <a href="game3.html" class="game-card">
+                <div class="icon">🔢</div>
+                <div class="game-name">數獨</div>
+            </a>
+        </div>
     </div>
+    
+    <!-- 益智遊戲分類 -->
+    <div class="category">
+        <h2 class="category-title">🧩 益智遊戲</h2>
+        <div class="games-container">
+            <a href="game2.html" class="game-card">
+                <div class="icon">🧮</div>
+                <div class="game-name">2048</div>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 動作遊戲分類 (範例，可添加更多遊戲) -->
+    <div class="category">
+        <h2 class="category-title">⚡ 動作遊戲</h2>
+        <div class="games-container">
+            <!-- 可在此添加動作遊戲 -->
+            <a href="#" class="game-card">
+                <div class="icon">🕹️</div>
+                <div class="game.html">動作遊戲範例</div>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 更多遊戲分類範例 -->
+    <div class="category">
+        <h2 class="category-title">🎲 休閒遊戲</h2>
+        <div class="games-container">
+            <!-- 可在此添加休閒遊戲 -->
+            <a href="#" class="game-card">
+                <div class="icon">🎪</div>
+                <div class="game-name">休閒遊戲範例</div>
+            </a>
+        </div>
+    </div>
+
 </body>
 </html>

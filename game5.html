@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>釣魚達人 - Sol Cheang 休閒遊戲</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #87CEEB, #E0F7FF);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            color: #1a5f7a;
+            text-shadow: 2px 2px 0 #fff;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #2c7873;
+            margin-bottom: 15px;
+        }
+        
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        canvas {
+            display: block;
+            background-color: #7EC8E3;
+        }
+        
+        .ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            border: 2px solid #1a5f7a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+        }
+        
+        .info-box h3 {
+            color: #1a5f7a;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        .fish-collection {
+            position: absolute;
+            right: 20px;
+            top: 100px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #1a5f7a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 200px;
+            pointer-events: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .fish-collection h3 {
+            color: #1a5f7a;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .fish-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgba(26, 95, 122, 0.1);
+        }
+        
+        .fish-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .fish-name {
+            flex-grow: 1;
+            font-weight: bold;
+        }
+        
+        .fish-count {
+            background-color: #1a5f7a;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(to bottom, #4CAF50, #2E7D32);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to bottom, #5CBF5F, #388E3C);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to bottom, #FF9800, #EF6C00);
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(to bottom, #FFB74D, #F57C00);
+        }
+        
+        .instructions {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            border: 3px solid #4CAF50;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .instructions h3 {
+            margin-bottom: 15px;
+            color: #2E7D32;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .instructions-section {
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .instructions-section h4 {
+            color: #1a5f7a;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #1a5f7a;
+            padding-bottom: 5px;
+        }
+        
+        .instructions-section ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+        
+        .instructions-section li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .instructions-section li:before {
+            content: "🎣";
+            margin-right: 10px;
+        }
+        
+        .key {
+            display: inline-block;
+            background-color: rgba(26, 95, 122, 0.2);
+            border: 1px solid #1a5f7a;
+            padding: 4px 10px;
+            border-radius: 5px;
+            margin: 0 5px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #1a5f7a;
+        }
+        
+        .start-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 10;
+            border: 4px solid #1a5f7a;
+            box-shadow: 0 0 40px rgba(26, 95, 122, 0.4);
+            width: 90%;
+            max-width: 600px;
+        }
+        
+        .start-screen h2 {
+            font-size: 2.5rem;
+            color: #1a5f7a;
+            margin-bottom: 15px;
+        }
+        
+        .start-screen p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .fish-size {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .upgrade-shop {
+            position: absolute;
+            left: 20px;
+            top: 100px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #FF9800;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 200px;
+            pointer-events: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .upgrade-shop h3 {
+            color: #EF6C00;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .upgrade-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(255, 152, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .upgrade-item:hover {
+            background-color: rgba(255, 152, 0, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .upgrade-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .upgrade-item.disabled:hover {
+            transform: none;
+            background-color: rgba(255, 152, 0, 0.1);
+        }
+        
+        .upgrade-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .upgrade-name {
+            font-weight: bold;
+            color: #EF6C00;
+        }
+        
+        .upgrade-cost {
+            background-color: #EF6C00;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .upgrade-desc {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .bubble {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .weather-toggle {
+            position: absolute;
+            top: 20px;
+            right: 250px;
+            pointer-events: auto;
+        }
+        
+        .weather-btn {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid #1a5f7a;
+            color: #1a5f7a;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .weather-btn:hover {
+            background-color: #1a5f7a;
+            color: white;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #1a5f7a;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 800px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(26, 95, 122, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .info-box {
+                font-size: 1rem;
+                padding: 8px 12px;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .start-screen {
+                padding: 25px;
+                width: 95%;
+            }
+            
+            .fish-collection, .upgrade-shop {
+                position: static;
+                width: 100%;
+                margin-bottom: 15px;
+                max-height: 200px;
+            }
+            
+            .instructions-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .weather-toggle {
+                position: static;
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .game-info {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .info-box {
+                flex: 1;
+                min-width: 45%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>釣魚達人</h1>
+            <p class="subtitle">Sol Cheang 休閒遊戲系列 - 在寧靜湖泊中享受釣魚樂趣</p>
+        </header>
+        
+        <div class="game-wrapper">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            
+            <div class="ui-overlay">
+                <div class="game-info">
+                    <div class="info-box">
+                        <h3>金錢</h3>
+                        <div>💰 <span id="money">100</span></div>
+                    </div>
+                    <div class="info-box">
+                        <h3>釣魚等級</h3>
+                        <div>🎣 <span id="level">1</span></div>
+                    </div>
+                    <div class="info-box">
+                        <h3>經驗值</h3>
+                        <div>⭐ <span id="exp">0</span>/<span id="expNeeded">100</span></div>
+                    </div>
+                    <div class="info-box">
+                        <h3>時間</h3>
+                        <div>⏰ <span id="time">12:00</span></div>
+                    </div>
+                </div>
+                
+                <div class="weather-toggle">
+                    <button id="weatherBtn" class="weather-btn">天氣: 晴天 ☀️</button>
+                </div>
+                
+                <div class="fish-collection">
+                    <h3>📋 釣獲紀錄</h3>
+                    <div id="fishCollection"></div>
+                </div>
+                
+                <div class="upgrade-shop">
+                    <h3>🛒 升級商店</h3>
+                    <div id="upgradeShop"></div>
+                </div>
+            </div>
+            
+            <div id="startScreen" class="start-screen">
+                <h2>釣魚達人</h2>
+                <p>歡迎來到寧靜的釣魚湖畔！放鬆心情，享受釣魚的樂趣。<br>
+                釣到不同的魚類，升級裝備，成為釣魚大師！</p>
+                <button id="startBtn" class="btn">🎣 開始釣魚</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="castBtn" class="btn">🎣 拋竿</button>
+            <button id="reelBtn" class="btn">🔄 收竿</button>
+            <button id="pauseBtn" class="btn">⏸️ 暫停遊戲</button>
+            <button id="soundBtn" class="btn">🔊 音效: 開啟</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>🎣 遊戲說明</h3>
+            <div class="instructions-content">
+                <div class="instructions-section">
+                    <h4>遊戲目標</h4>
+                    <ul>
+                        <li>釣到各種不同的魚類，完成收藏</li>
+                        <li>賺取金錢，升級釣魚裝備</li>
+                        <li>提升釣魚等級，解鎖更高級魚類</li>
+                        <li>享受寧靜的釣魚時光，放鬆心情</li>
+                    </ul>
+                </div>
+                <div class="instructions-section">
+                    <h4>遊戲控制</h4>
+                    <ul>
+                        <li>點擊 <span class="key">拋竿</span> 按鈕或按 <span class="key">空格鍵</span> 拋出魚竿</li>
+                        <li>點擊 <span class="key">收竿</span> 按鈕或按 <span class="key">R</span> 鍵收竿</li>
+                        <li>當魚咬鉤時，浮標會下沉，這時收竿能釣到魚</li>
+                        <li>不同的魚有不同的咬鉤時間和掙扎強度</li>
+                        <li>使用金錢在商店升級裝備，釣到更好的魚</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Sol Cheang 遊戲系列 | HTML5 Canvas 休閒遊戲 | 放鬆心情，享受釣魚樂趣！</p>
+        </footer>
+    </div>
+
+    <script>
+        // 遊戲主變量
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startScreen = document.getElementById('startScreen');
+        const startBtn = document.getElementById('startBtn');
+        const castBtn = document.getElementById('castBtn');
+        const reelBtn = document.getElementById('reelBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const soundBtn = document.getElementById('soundBtn');
+        const weatherBtn = document.getElementById('weatherBtn');
+        const moneyElement = document.getElementById('money');
+        const levelElement = document.getElementById('level');
+        const expElement = document.getElementById('exp');
+        const expNeededElement = document.getElementById('expNeeded');
+        const timeElement = document.getElementById('time');
+        const fishCollectionElement = document.getElementById('fishCollection');
+        const upgradeShopElement = document.getElementById('upgradeShop');
+        
+        // 遊戲狀態
+        let game = {
+            running: false,
+            paused: false,
+            sound: true,
+            money: 100,
+            level: 1,
+            exp: 0,
+            expNeeded: 100,
+            time: 12 * 60, // 分鐘表示，從12:00開始
+            weather: 'sunny', // sunny, cloudy, rainy, night
+            cast: false,
+            fishOnHook: false,
+            currentFish: null,
+            fishCollection: {},
+            upgrades: {
+                rodLevel: 1,
+                baitLevel: 1,
+                lineLevel: 1,
+                reelLevel: 1
+            }
+        };
+        
+        // 魚類數據
+        const fishTypes = [
+            { name: "小鯉魚", emoji: "🐟", rarity: "common", minWeight: 0.5, maxWeight: 2.0, basePrice: 10, minLevel: 1, biteTime: 1000, struggle: 1 },
+            { name: "大鯉魚", emoji: "🐠", rarity: "common", minWeight: 2.0, maxWeight: 5.0, basePrice: 25, minLevel: 2, biteTime: 1500, struggle: 2 },
+            { name: "鯽魚", emoji: "🐡", rarity: "common", minWeight: 0.3, maxWeight: 1.5, basePrice: 15, minLevel: 1, biteTime: 800, struggle: 1 },
+            { name: "鱸魚", emoji: "🎣", rarity: "uncommon", minWeight: 1.0, maxWeight: 3.0, basePrice: 40, minLevel: 3, biteTime: 2000, struggle: 3 },
+            { name: "鯰魚", emoji: "🐋", rarity: "uncommon", minWeight: 3.0, maxWeight: 8.0, basePrice: 60, minLevel: 4, biteTime: 2500, struggle: 4 },
+            { name: "鱒魚", emoji: "🐠", rarity: "rare", minWeight: 1.5, maxWeight: 4.0, basePrice: 80, minLevel: 5, biteTime: 1800, struggle: 3 },
+            { name: "鮭魚", emoji: "🐟", rarity: "rare", minWeight: 2.0, maxWeight: 6.0, basePrice: 100, minLevel: 6, biteTime: 2200, struggle: 4 },
+            { name: "金魚", emoji: "🐠", rarity: "epic", minWeight: 0.1, maxWeight: 0.5, basePrice: 150, minLevel: 3, biteTime: 500, struggle: 1 },
+            { name: "錦鯉", emoji: "🐡", rarity: "epic", minWeight: 2.0, maxWeight: 10.0, basePrice: 300, minLevel: 7, biteTime: 3000, struggle: 5 },
+            { name: "鯊魚", emoji: "🦈", rarity: "legendary", minWeight: 50.0, maxWeight: 200.0, basePrice: 1000, minLevel: 10, biteTime: 5000, struggle: 10 }
+        ];
+        
+        // 升級選項
+        const upgradeOptions = [
+            { id: "rod", name: "釣竿升級", desc: "提高釣到大魚的機率", baseCost: 50, costMultiplier: 1.5, maxLevel: 10 },
+            { id: "bait", name: "魚餌升級", desc: "減少魚咬鉤的時間", baseCost: 30, costMultiplier: 1.4, maxLevel: 10 },
+            { id: "line", name: "釣線升級", desc: "減少魚掙脫的機率", baseCost: 40, costMultiplier: 1.5, maxLevel: 10 },
+            { id: "reel", name: "捲線器升級", desc: "加快收竿速度", baseCost: 60, costMultiplier: 1.6, maxLevel: 10 }
+        ];
+        
+        // 遊戲物件
+        let bobber = {
+            x: canvas.width / 2,
+            y: 100,
+            radius: 10,
+            castY: 100,
+            depth: 0,
+            maxDepth: 400,
+            casting: false,
+            reeling: false,
+            biteIndicator: false,
+            biteTime: 0
+        };
+        
+        let water = {
+            level: 300,
+            waves: []
+        };
+        
+        let fish = [];
+        let bubbles = [];
+        let plants = [];
+        let particles = [];
+        
+        // 初始化遊戲
+        function init() {
+            // 初始化魚類收藏
+            for (const fishType of fishTypes) {
+                game.fishCollection[fishType.name] = 0;
+            }
+            
+            // 初始化水波
+            water.waves = [];
+            for (let i = 0; i < 20; i++) {
+                water.waves.push({
+                    x: Math.random() * canvas.width,
+                    y: water.level + Math.random() * 20 - 10,
+                    width: 20 + Math.random() * 30,
+                    speed: 0.5 + Math.random() * 1
+                });
+            }
+            
+            // 初始化水草
+            plants = [];
+            for (let i = 0; i < 15; i++) {
+                plants.push({
+                    x: Math.random() * canvas.width,
+                    height: 30 + Math.random() * 70,
+                    width: 5 + Math.random() * 10,
+                    sway: Math.random() * 0.05
+                });
+            }
+            
+            // 初始化魚
+            fish = [];
+            for (let i = 0; i = 0; i--) {
+                const fishObj = fish[i];
+                
+                // 移動魚
+                fishObj.x += fishObj.speed;
+                
+                // 如果游出畫布，從另一邊回來
+                if (fishObj.x > canvas.width + 50) {
+                    fishObj.x = -50;
+                    fishObj.y = water.level + 30 + Math.random() * (canvas.height - water.level - 80);
+                } else if (fishObj.x < -50) {
+                    fishObj.x = canvas.width + 50;
+                    fishObj.y = water.level + 30 + Math.random() * (canvas.height - water.level - 80);
+                }
+                
+                // 繪製魚
+                drawFish(fishObj);
+                
+                // 如果魚咬鉤了
+                if (bobber.casting && !bobber.reeling && bobber.depth > 0) {
+                    const distance = Math.sqrt(
+                        Math.pow(fishObj.x - bobber.x, 2) + 
+                        Math.pow(fishObj.y - (water.level + bobber.depth), 2)
+                    );
+                    
+                    // 如果魚接近魚餌
+                    if (distance < 30 && !bobber.biteIndicator && !game.currentFish) {
+                        // 檢查魚是否會咬鉤
+                        if (Math.random() < 0.01 * game.upgrades.baitLevel) {
+                            bobber.biteIndicator = true;
+                            bobber.biteTime = Date.now();
+                            game.currentFish = fishObj;
+                            
+                            // 播放咬鉤音效
+                            if (game.sound) playBiteSound();
+                        }
+                    }
+                }
+            }
+            
+            // 更新浮標
+            updateBobber();
+            
+            // 更新氣泡
+            updateBubbles();
+            
+            // 更新粒子效果
+            updateParticles();
+            
+            // 更新時間
+            updateTime();
+            
+            // 檢查魚是否咬鉤
+            checkBite();
+            
+            // 繼續遊戲循環
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // 繪製背景
+        function drawBackground() {
+            // 天空
+            let skyGradient;
+            switch (game.weather) {
+                case 'sunny':
+                    skyGradient = ctx.createLinearGradient(0, 0, 0, water.level);
+                    skyGradient.addColorStop(0, '#87CEEB');
+                    skyGradient.addColorStop(1, '#E0F7FF');
+                    break;
+                case 'cloudy':
+                    skyGradient = ctx.createLinearGradient(0, 0, 0, water.level);
+                    skyGradient.addColorStop(0, '#B0BEC5');
+                    skyGradient.addColorStop(1, '#CFD8DC');
+                    break;
+                case 'rainy':
+                    skyGradient = ctx.createLinearGradient(0, 0, 0, water.level);
+                    skyGradient.addColorStop(0, '#757575');
+                    skyGradient.addColorStop(1, '#9E9E9E');
+                    break;
+                case 'night':
+                    skyGradient = ctx.createLinearGradient(0, 0, 0, water.level);
+                    skyGradient.addColorStop(0, '#0D1B2A');
+                    skyGradient.addColorStop(1, '#1B263B');
+                    break;
+            }
+            ctx.fillStyle = skyGradient;
+            ctx.fillRect(0, 0, canvas.width, water.level);
+            
+            // 根據天氣繪製特效
+            if (game.weather === 'sunny') {
+                // 太陽
+                ctx.fillStyle = '#FFEB3B';
+                ctx.beginPath();
+                ctx.arc(canvas.width - 100, 80, 40, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // 陽光
+                ctx.strokeStyle = 'rgba(255, 235, 59, 0.3)';
+                ctx.lineWidth = 4;
+                for (let i = 0; i < 8; i++) {
+                    const angle = (i / 8) * Math.PI * 2;
+                    const length = 60;
+                    ctx.beginPath();
+                    ctx.moveTo(
+                        canvas.width - 100 + Math.cos(angle) * 45,
+                        80 + Math.sin(angle) * 45
+                    );
+                    ctx.lineTo(
+                        canvas.width - 100 + Math.cos(angle) * (45 + length),
+                        80 + Math.sin(angle) * (45 + length)
+                    );
+                    ctx.stroke();
+                }
+            } else if (game.weather === 'night') {
+                // 星星
+                ctx.fillStyle = '#FFFFFF';
+                for (let i = 0; i < 50; i++) {
+                    const x = (i * 17) % canvas.width;
+                    const y = (i * 13) % water.level;
+                    const size = Math.random() * 2 + 0.5;
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                // 月亮
+                ctx.fillStyle = '#F5F5F5';
+                ctx.beginPath();
+                ctx.arc(100, 80, 30, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // 白雲（如果是晴天或陰天）
+            if (game.weather === 'sunny' || game.weather === 'cloudy') {
+                ctx.fillStyle = game.weather === 'sunny' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.9)';
+                
+                // 繪製幾朵雲
+                drawCloud(150, 120, 1);
+                drawCloud(400, 80, 0.8);
+                drawCloud(600, 150, 1.2);
+            }
+            
+            // 如果是雨天，繪製雨滴
+            if (game.weather === 'rainy') {
+                ctx.strokeStyle = 'rgba(174, 213, 255, 0.7)';
+                ctx.lineWidth = 1;
+                
+                for (let i = 0; i < 50; i++) {
+                    const x = (Date.now() / 10 + i * 20) % canvas.width;
+                    const y = (Date.now() / 5 + i * 30) % water.level;
+                    const length = 10 + Math.random() * 10;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y + length);
+                    ctx.stroke();
+                }
+            }
+            
+            // 遠山
+            ctx.fillStyle = game.weather === 'night' ? '#1B5E20' : '#2E7D32';
+            ctx.beginPath();
+            ctx.moveTo(0, water.level);
+            for (let i = 0; i < canvas.width; i += 50) {
+                const height = 50 + Math.sin(i / 100) * 30;
+                ctx.lineTo(i, water.level - height);
+            }
+            ctx.lineTo(canvas.width, water.level);
+            ctx.fill();
+            
+            // 湖泊
+            let waterGradient;
+            switch (game.weather) {
+                case 'sunny':
+                    waterGradient = ctx.createLinearGradient(0, water.level, 0, canvas.height);
+                    waterGradient.addColorStop(0, '#4FC3F7');
+                    waterGradient.addColorStop(1, '#0288D1');
+                    break;
+                case 'cloudy':
+                    waterGradient = ctx.createLinearGradient(0, water.level, 0, canvas.height);
+                    waterGradient.addColorStop(0, '#90A4AE');
+                    waterGradient.addColorStop(1, '#546E7A');
+                    break;
+                case 'rainy':
+                    waterGradient = ctx.createLinearGradient(0, water.level, 0, canvas.height);
+                    waterGradient.addColorStop(0, '#78909C');
+                    waterGradient.addColorStop(1, '#37474F');
+                    break;
+                case 'night':
+                    waterGradient = ctx.createLinearGradient(0, water.level, 0, canvas.height);
+                    waterGradient.addColorStop(0, '#1565C0');
+                    waterGradient.addColorStop(1, '#0D47A1');
+                    break;
+            }
+            ctx.fillStyle = waterGradient;
+            ctx.fillRect(0, water.level, canvas.width, canvas.height - water.level);
+            
+            // 水波
+            ctx.strokeStyle = game.weather === 'night' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 2;
+            
+            for (const wave of water.waves) {
+                wave.x += wave.speed;
+                if (wave.x > canvas.width + 50) wave.x = -50;
+                
+                ctx.beginPath();
+                ctx.arc(wave.x, wave.y, wave.width / 2, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            
+            // 水草
+            ctx.fillStyle = game.weather === 'night' ? '#1B5E20' : '#388E3C';
+            for (const plant of plants) {
+                ctx.save();
+                ctx.translate(plant.x, canvas.height - 10);
+                
+                // 水草擺動
+                const sway = Math.sin(Date.now() / 1000 + plant.sway) * 5;
+                ctx.rotate(sway * Math.PI / 180);
+                
+                ctx.beginPath();
+                ctx.ellipse(0, -plant.height / 2, plant.width / 2, plant.height / 2, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+        
+        // 繪製雲朵
+        function drawCloud(x, y, scale) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(scale, scale);
+            
+            ctx.beginPath();
+            ctx.arc(0, 0, 20, 0, Math.PI * 2);
+            ctx.arc(25, -10, 25, 0, Math.PI * 2);
+            ctx.arc(50, 0, 20, 0, Math.PI * 2);
+            ctx.arc(25, 10, 25, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.restore();
+        }
+        
+        // 繪製魚
+        function drawFish(fishObj) {
+            ctx.save();
+            ctx.translate(fishObj.x, fishObj.y);
+            
+            // 根據游動方向翻轉
+            if (fishObj.speed > 0) {
+                ctx.scale(-1, 1);
+            }
+            
+            // 魚身
+            ctx.fillStyle = fishObj.color;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, fishObj.size, fishObj.size / 2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 魚尾
+            ctx.beginPath();
+            ctx.moveTo(-fishObj.size, 0);
+            ctx.lineTo(-fishObj.size - 10, -fishObj.size / 2);
+            ctx.lineTo(-fishObj.size - 10, fishObj.size / 2);
+            ctx.closePath();
+            ctx.fill();
+            
+            // 魚鰭
+            ctx.beginPath();
+            ctx.moveTo(0, -fishObj.size / 2);
+            ctx.lineTo(-fishObj.size / 2, -fishObj.size);
+            ctx.lineTo(fishObj.size / 2, -fishObj.size / 2);
+            ctx.closePath();
+            ctx.fill();
+            
+            // 魚眼
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(fishObj.size * 0.6, 0, fishObj.size / 5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.restore();
+        }
+        
+        // 更新浮標
+        function updateBobber() {
+            // 拋竿動畫
+            if (bobber.casting && bobber.depth < bobber.maxDepth) {
+                bobber.depth += 8;
+                bobber.y = water.level + bobber.depth;
+                
+                // 創建氣泡
+                if (Math.random() < 0.3) {
+                    createBubble(bobber.x, bobber.y, 3);
+                }
+                
+                // 到達最大深度
+                if (bobber.depth >= bobber.maxDepth) {
+                    bobber.casting = false;
+                    bobber.biteIndicator = false;
+                }
+            }
+            
+            // 收竿動畫
+            if (bobber.reeling && bobber.depth > 0) {
+                bobber.depth -= 10 + game.upgrades.reelLevel;
+                bobber.y = water.level + bobber.depth;
+                
+                // 創建氣泡
+                if (Math.random() < 0.2) {
+                    createBubble(bobber.x, bobber.y, 2);
+                }
+                
+                // 完全收竿
+                if (bobber.depth <= 0) {
+                    bobber.depth = 0;
+                    bobber.y = bobber.castY;
+                    bobber.reeling = false;
+                    bobber.casting = false;
+                    bobber.biteIndicator = false;
+                    
+                    // 如果收竿時有魚咬鉤，捕獲魚
+                    if (game.currentFish) {
+                        catchFish(game.currentFish);
+                        game.currentFish = null;
+                    }
+                }
+            }
+            
+            // 繪製釣線
+            ctx.strokeStyle = game.weather === 'night' ? '#FFFFFF' : '#795548';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(bobber.x, bobber.castY);
+            ctx.lineTo(bobber.x, bobber.y);
+            ctx.stroke();
+            
+            // 繪製浮標
+            if (bobber.biteIndicator) {
+                // 魚咬鉤時浮標閃爍
+                const blink = Math.sin(Date.now() / 100) > 0;
+                ctx.fillStyle = blink ? '#FF5722' : '#FF9800';
+            } else {
+                ctx.fillStyle = '#FF9800';
+            }
+            
+            ctx.beginPath();
+            ctx.arc(bobber.x, bobber.y, bobber.radius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 浮標細節
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath();
+            ctx.arc(bobber.x, bobber.y, bobber.radius / 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        // 檢查魚咬鉤
+        function checkBite() {
+            if (bobber.biteIndicator && game.currentFish) {
+                const biteDuration = Date.now() - bobber.biteTime;
+                const fishType = fishTypes.find(f => f.name === game.currentFish.type);
+                
+                // 如果超過咬鉤時間，魚會跑掉
+                if (biteDuration > fishType.biteTime + 2000) {
+                    bobber.biteIndicator = false;
+                    game.currentFish = null;
+                    
+                    // 顯示魚跑掉的訊息
+                    createMessage("魚跑掉了！", bobber.x, bobber.y - 30, "#FF5722");
+                }
+            }
+        }
+        
+        // 捕獲魚
+        function catchFish(fishObj) {
+            const fishType = fishTypes.find(f => f.name === fishObj.type);
+            
+            // 計算價格
+            const weight = fishObj.weight;
+            const price = Math.floor(fishType.basePrice * weight * (1 + game.upgrades.rodLevel * 0.1));
+            
+            // 增加金錢
+            game.money += price;
+            
+            // 增加經驗值
+            const expGain = Math.floor(price / 5);
+            game.exp += expGain;
+            
+            // 檢查是否升級
+            while (game.exp >= game.expNeeded) {
+                game.exp -= game.expNeeded;
+                game.level++;
+                game.expNeeded = Math.floor(game.expNeeded * 1.5);
+                
+                // 顯示升級訊息
+                createMessage(`升級到 ${game.level} 級！`, canvas.width / 2, 100, "#4CAF50");
+                
+                // 播放升級音效
+                if (game.sound) playLevelUpSound();
+            }
+            
+            // 更新收藏
+            game.fishCollection[fishObj.type]++;
+            
+            // 從魚群中移除這條魚
+            const fishIndex = fish.findIndex(f => f === fishObj);
+            if (fishIndex !== -1) {
+                fish.splice(fishIndex, 1);
+            }
+            
+            // 顯示捕獲訊息
+            createMessage(`捕獲 ${fishObj.type} (${weight.toFixed(2)}kg) +$${price}`, bobber.x, bobber.y - 50, "#4CAF50");
+            
+            // 創建慶祝粒子
+            for (let i = 0; i < 10; i++) {
+                particles.push({
+                    x: bobber.x,
+                    y: bobber.y,
+                    vx: (Math.random() - 0.5) * 5,
+                    vy: (Math.random() - 0.5) * 5 - 2,
+                    size: Math.random() * 5 + 2,
+                    color: '#FFD700',
+                    life: 50
+                });
+            }
+            
+            // 播放捕獲音效
+            if (game.sound) playCatchSound();
+            
+            // 更新UI
+            updateUI();
+        }
+        
+        // 創建氣泡
+        function createBubble(x, y, size) {
+            bubbles.push({
+                x: x,
+                y: y,
+                size: size,
+                speed: 0.5 + Math.random() * 1,
+                life: 100
+            });
+        }
+        
+        // 更新氣泡
+        function updateBubbles() {
+            for (let i = bubbles.length - 1; i >= 0; i--) {
+                const bubble = bubbles[i];
+                
+                // 移動氣泡
+                bubble.y -= bubble.speed;
+                bubble.x += Math.sin(Date.now() / 500 + i) * 0.5;
+                bubble.life--;
+                
+                // 繪製氣泡
+                ctx.fillStyle = `rgba(255, 255, 255, ${bubble.life / 100 * 0.5})`;
+                ctx.beginPath();
+                ctx.arc(bubble.x, bubble.y, bubble.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // 氣泡高光
+                ctx.fillStyle = `rgba(255, 255, 255, ${bubble.life / 100 * 0.8})`;
+                ctx.beginPath();
+                ctx.arc(bubble.x - bubble.size / 3, bubble.y - bubble.size / 3, bubble.size / 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // 移除生命結束的氣泡
+                if (bubble.life <= 0 || bubble.y < water.level - 50) {
+                    bubbles.splice(i, 1);
+                }
+            }
+            
+            // 隨機生成新氣泡
+            if (Math.random() < 0.05 && game.running && !game.paused) {
+                createBubble(
+                    Math.random() * canvas.width,
+                    water.level + 50 + Math.random() * (canvas.height - water.level - 100),
+                    2 + Math.random() * 4
+                );
+            }
+        }
+        
+        // 創建訊息
+        function createMessage(text, x, y, color) {
+            particles.push({
+                x: x,
+                y: y,
+                vx: 0,
+                vy: -1,
+                size: 18,
+                color: color,
+                life: 100,
+                text: text
+            });
+        }
+        
+        // 更新粒子效果
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const particle = particles[i];
+                
+                // 移動粒子
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                particle.life--;
+                
+                // 繪製粒子
+                if (particle.text) {
+                    // 文字粒子
+                    ctx.font = `${particle.size}px Arial`;
+                    ctx.fillStyle = particle.color;
+                    ctx.textAlign = 'center';
+                    ctx.fillText(particle.text, particle.x, particle.y);
+                } else {
+                    // 圖形粒子
+                    ctx.fillStyle = particle.color;
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                // 移除生命結束的粒子
+                if (particle.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+        }
+        
+        // 更新時間
+        function updateTime() {
+            if (!game.paused && game.running) {
+                game.time += 0.5; // 每幀增加半分鐘
+                
+                // 每24小時重置
+                if (game.time >= 24 * 60) {
+                    game.time = 0;
+                }
+                
+                // 根據時間改變天氣
+                const hour = Math.floor(game.time / 60);
+                if (hour >= 18 || hour < 6) {
+                    if (game.weather !== 'night') {
+                        game.weather = 'night';
+                        weatherBtn.textContent = '天氣: 夜晚 🌙';
+                    }
+                } else if (game.weather === 'night') {
+                    game.weather = 'sunny';
+                    weatherBtn.textContent = '天氣: 晴天 ☀️';
+                }
+            }
+            
+            // 格式化時間顯示
+            const hour = Math.floor(game.time / 60);
+            const minute = Math.floor(game.time % 60);
+            const hourStr = hour.toString().padStart(2, '0');
+            const minuteStr = minute.toString().padStart(2, '0');
+            timeElement.textContent = `${hourStr}:${minuteStr}`;
+        }
+        
+        // 更新UI
+        function updateUI() {
+            moneyElement.textContent = game.money;
+            levelElement.textContent = game.level;
+            expElement.textContent = game.exp;
+            expNeededElement.textContent = game.expNeeded;
+            
+            // 更新魚類收藏顯示
+            fishCollectionElement.innerHTML = '<h3>📋 釣獲紀錄</h3>';
+            for (const fishType of fishTypes) {
+                if (game.fishCollection[fishType.name] > 0) {
+                    const fishItem = document.createElement('div');
+                    fishItem.className = 'fish-item';
+                    fishItem.innerHTML = `
+                        <div class="fish-icon">${fishType.emoji}</div>
+                        <div class="fish-name">${fishType.name}</div>
+                        <div class="fish-count">${game.fishCollection[fishType.name]}</div>
+                    `;
+                    fishCollectionElement.appendChild(fishItem);
+                }
+            }
+            
+            // 更新升級商店
+            upgradeShopElement.innerHTML = '<h3>🛒 升級商店</h3>';
+            for (const upgrade of upgradeOptions) {
+                const currentLevel = game.upgrades[upgrade.id + 'Level'];
+                const cost = Math.floor(upgrade.baseCost * Math.pow(upgrade.costMultiplier, currentLevel - 1));
+                const canAfford = game.money >= cost;
+                const maxLevelReached = currentLevel >= upgrade.maxLevel;
+                
+                const upgradeItem = document.createElement('div');
+                upgradeItem.className = `upgrade-item ${!canAfford || maxLevelReached ? 'disabled' : ''}`;
+                upgradeItem.innerHTML = `
+                    <div class="upgrade-header">
+                        <div class="upgrade-name">${upgrade.name} Lv.${currentLevel}</div>
+                        <div class="upgrade-cost">$${cost}</div>
+                    </div>
+                    <div class="upgrade-desc">${upgrade.desc}</div>
+                `;
+                
+                if (!maxLevelReached) {
+                    upgradeItem.addEventListener('click', () => {
+                        if (canAfford) {
+                            game.money -= cost;
+                            game.upgrades[upgrade.id + 'Level']++;
+                            updateUI();
+                            createMessage(`${upgrade.name} 升級到 Lv.${currentLevel + 1}`, canvas.width / 2, 150, "#FF9800");
+                            
+                            // 播放升級音效
+                            if (game.sound) playUpgradeSound();
+                        }
+                    });
+                }
+                
+                upgradeShopElement.appendChild(upgradeItem);
+            }
+        }
+        
+        // 音效函數
+        function playBiteSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.1);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (e) {
+                console.log("音效播放失敗: ", e);
+            }
+        }
+        
+        function playCatchSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // 播放歡快的音調
+                for (let i = 0; i < 3; i++) {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(523.25 * (i + 1), audioContext.currentTime + i * 0.1); // C5, C6, C7
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.15, audioContext.currentTime + i * 0.1);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.3);
+                    
+                    oscillator.start(audioContext.currentTime + i * 0.1);
+                    oscillator.stop(audioContext.currentTime + i * 0.1 + 0.3);
+                }
+            } catch (e) {
+                console.log("音效播放失敗: ", e);
+            }
+        }
+        
+        function playLevelUpSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // 播放升級音階
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                for (let i = 0; i < notes.length; i++) {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(notes[i], audioContext.currentTime + i * 0.1);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.3);
+                    
+                    oscillator.start(audioContext.currentTime + i * 0.1);
+                    oscillator.stop(audioContext.currentTime + i * 0.1 + 0.3);
+                }
+            } catch (e) {
+                console.log("音效播放失敗: ", e);
+            }
+        }
+        
+        function playUpgradeSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.3);
+                oscillator.type = 'sawtooth';
+                
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.4);
+            } catch (e) {
+                console.log("音效播放失敗: ", e);
+            }
+        }
+        
+        // 拋竿
+        function castLine() {
+            if (!bobber.casting && !bobber.reeling && bobber.depth === 0) {
+                bobber.casting = true;
+                bobber.reeling = false;
+                game.currentFish = null;
+                
+                // 隨機決定拋竿位置
+                bobber.x = canvas.width / 4 + Math.random() * canvas.width / 2;
+            }
+        }
+        
+        // 收竿
+        function reelLine() {
+            if (bobber.depth > 0 && !bobber.reeling) {
+                bobber.reeling = true;
+                bobber.casting = false;
+            }
+        }
+        
+        // 事件監聽器
+        startBtn.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            game.running = true;
+            game.paused = false;
+            pauseBtn.textContent = '⏸️ 暫停遊戲';
+            init();
+        });
+        
+        castBtn.addEventListener('click', castLine);
+        
+        reelBtn.addEventListener('click', reelLine);
+        
+        pauseBtn.addEventListener('click', () => {
+            if (game.running) {
+                game.paused = !game.paused;
+                pauseBtn.textContent = game.paused ? '▶️ 繼續遊戲' : '⏸️ 暫停遊戲';
+                
+                if (!game.paused) {
+                    requestAnimationFrame(gameLoop);
+                }
+            }
+        });
+        
+        soundBtn.addEventListener('click', () => {
+            game.sound = !game.sound;
+            soundBtn.textContent = game.sound ? '🔊 音效: 開啟' : '🔇 音效: 關閉';
+        });
+        
+        weatherBtn.addEventListener('click', () => {
+            const weathers = ['sunny', 'cloudy', 'rainy'];
+            const weatherNames = ['晴天 ☀️', '陰天 ☁️', '雨天 🌧️'];
+            const currentIndex = weathers.indexOf(game.weather);
+            const nextIndex = (currentIndex + 1) % weathers.length;
+            
+            // 如果是夜晚，先切換到白天
+            if (game.weather === 'night') {
+                game.weather = 'sunny';
+                weatherBtn.textContent = '天氣: 晴天 ☀️';
+            } else {
+                game.weather = weathers[nextIndex];
+                weatherBtn.textContent = `天氣: ${weatherNames[nextIndex]}`;
+            }
+        });
+        
+        // 鍵盤控制
+        window.addEventListener('keydown', (e) => {
+            // 空格鍵拋竿
+            if (e.code === 'Space' && game.running) {
+                e.preventDefault();
+                castLine();
+            }
+            
+            // R鍵收竿
+            if (e.code === 'KeyR' && game.running) {
+                reelLine();
+            }
+            
+            // P鍵暫停遊戲
+            if (e.code === 'KeyP' && game.running) {
+                game.paused = !game.paused;
+                pauseBtn.textContent = game.paused ? '▶️ 繼續遊戲' : '⏸️ 暫停遊戲';
+                
+                if (!game.paused) {
+                    requestAnimationFrame(gameLoop);
+                }
+            }
+        });
+        
+        // 初始顯示開始畫面
+        startScreen.style.display = 'block';
+        
+        // 初始化UI
+        updateUI();
+        
+        console.log("遊戲載入完成！點擊開始釣魚按鈕開始遊玩。");
+    </script>
+</body>
+</html>
