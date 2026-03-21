@@ -1,0 +1,364 @@
+/* 貪食蛇遊戲樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #111;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+
+.score-container, .high-score-container, .difficulty-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-value, .high-score-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.difficulty-value {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #FF9800;
+}
+
+.game-board {
+    width: 600px;
+    height: 400px;
+    background-color: #000;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+#game-canvas {
+    display: block;
+}
+
+.controls {
+    margin-top: 20px;
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.difficulty-btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+}
+
+.difficulty-btn.active {
+    background-color: #FF9800;
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+}
+
+.easy-btn {
+    background-color: #2196F3;
+}
+
+.medium-btn {
+    background-color: #FF9800;
+}
+
+.hard-btn {
+    background-color: #F44336;
+}
+
+.instructions {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    max-width: 600px;
+}
+
+.instructions h2 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.instructions ul {
+    padding-left: 20px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.game-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    display: none;
+}
+
+.game-over h2 {
+    font-size: 3rem;
+    color: #ff3333;
+    margin-bottom: 20px;
+}
+
+.game-over .score-display {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.game-over p {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.game-over .final-score-text {
+    font-size: 2rem;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.game-over .final-high-score-text {
+    font-size: 1.8rem;
+    color: #FF9800;
+    margin-bottom: 15px;
+}
+
+.game-over .score-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.game-over .high-score-value {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.game-over .new-high-score {
+    color: #FFD700;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: none;
+}
+
+/* 開始畫面樣式 */
+.start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.start-screen h2 {
+    font-size: 4rem;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+}
+
+.start-screen p {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.start-screen .instructions-list {
+    max-width: 500px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.start-screen .key-hint {
+    font-size: 1.2rem;
+    color: #FF9800;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 152, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.mobile-controls {
+    display: none;
+    margin-top: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    width: 200px;
+    height: 200px;
+}
+
+.mobile-controls button {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    font-size: 1.5rem;
+}
+
+.mobile-controls .up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.mobile-controls .left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.mobile-controls .right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.mobile-controls .down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+@media (max-width: 650px) {
+    .game-board, .game-info, .controls {
+        width: 95vw;
+        max-width: 500px;
+    }
+    
+    .game-board {
+        height: 70vw;
+        max-height: 350px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .difficulty-buttons {
+        margin-left: 0;
+    }
+    
+    .mobile-controls {
+        display: grid;
+    }
+    
+    .start-screen h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 500px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .game-info {
+        font-size: 1rem;
+    }
+    
+    .score-value, .high-score-value {
+        font-size: 1.5rem;
+    }
+    
+    button {
+        padding: 10px 18px;
+        font-size: 1rem;
+    }
+    
+    .start-screen h2 {
+        font-size: 2.5rem;
+    }
+    
+    .start-screen p {
+        font-size: 1.2rem;
+    }
+}

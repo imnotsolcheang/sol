@@ -342,6 +342,59 @@
             }
         }
         
+        /* 開始畫面樣式 */
+        .start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            border-radius: 10px;
+        }
+        
+        .start-screen h2 {
+            font-size: 3.5rem;
+            color: #ff9a00;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 154, 0, 0.7);
+            background: linear-gradient(45deg, #ff9a00, #ff5252);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .start-screen p {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        
+        .start-screen .key-hint {
+            font-size: 1.2rem;
+            color: #4cc9f0;
+            padding: 10px 20px;
+            background-color: rgba(76, 201, 240, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
         @media (max-width: 400px) {
             .grid-cell, .tile {
                 width: 60px;
@@ -349,6 +402,14 @@
             }
             
             .tile {
+                font-size: 1.2rem;
+            }
+            
+            .start-screen h2 {
+                font-size: 2.5rem;
+            }
+            
+            .start-screen p {
                 font-size: 1.2rem;
             }
         }
@@ -374,6 +435,13 @@
         </div>
         
         <div class="game-container">
+            <!-- 開始畫面 -->
+            <div id="start-screen" class="start-screen">
+                <h2>2048 遊戲</h2>
+                <p>使用方向鍵移動方塊，合併相同數字以達到2048！</p>
+                <p class="key-hint">按任意鍵開始遊戲</p>
+            </div>
+            
             <div class="grid-container">
                 <!-- 4x4网格 -->
                 <div class="grid-row">
@@ -469,12 +537,25 @@
         const newGameButton = document.getElementById('new-game-btn');
         const undoButton = document.getElementById('undo-btn');
         const howToPlayButton = document.getElementById('how-to-play-btn');
+        const startScreen = document.getElementById('start-screen');
         
         // 移动端控制按钮
         const upButton = document.getElementById('up-btn');
         const downButton = document.getElementById('down-btn');
         const leftButton = document.getElementById('left-btn');
         const rightButton = document.getElementById('right-btn');
+        
+        // 遊戲狀態
+        let gameStarted = false;
+        
+        // 開始遊戲
+        function startGame() {
+            if (!gameStarted) {
+                startScreen.style.display = 'none';
+                gameStarted = true;
+                initGame();
+            }
+        }
         
         // 初始化游戏
         function initGame() {
@@ -887,6 +968,12 @@
         
         // 事件监听器
         document.addEventListener('keydown', function(event) {
+            // 如果遊戲還沒開始，按任意鍵開始遊戲
+            if (!gameStarted) {
+                startGame();
+                return;
+            }
+            
             if (gameOver && !gameWon) return;
             
             switch(event.key) {
@@ -924,8 +1011,11 @@
             alert('游戏规则：\n\n1. 使用键盘方向键或屏幕按钮移动方块\n2. 当两个相同数字的方块碰撞时，它们会合并成一个数字翻倍的方块\n3. 每次移动后，会在空白处随机生成一个2或4的方块\n4. 目标是合并出2048方块\n5. 当棋盘填满且无法合并时，游戏结束');
         });
         
-        // 初始化游戏
-        initGame();
+        // 點擊開始畫面開始遊戲
+        startScreen.addEventListener('click', startGame);
+        
+        // 初始顯示開始畫面
+        startScreen.style.display = 'flex';
     </script>
 </body>
 </html>

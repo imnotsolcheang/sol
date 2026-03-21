@@ -1,0 +1,279 @@
+/* 共用樣式庫 */
+
+/* 基礎重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 共用按鈕樣式 */
+.shared-btn {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    border: 2px solid transparent;
+}
+
+.shared-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.shared-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.shared-btn:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3);
+}
+
+/* 按鈕變體 */
+.shared-btn-primary {
+    background-color: #2196F3;
+}
+
+.shared-btn-primary:hover {
+    background-color: #0b7dda;
+}
+
+.shared-btn-secondary {
+    background-color: #6c757d;
+}
+
+.shared-btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.shared-btn-success {
+    background-color: #28a745;
+}
+
+.shared-btn-success:hover {
+    background-color: #218838;
+}
+
+.shared-btn-danger {
+    background-color: #dc3545;
+}
+
+.shared-btn-danger:hover {
+    background-color: #c82333;
+}
+
+.shared-btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.shared-btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* 遊戲卡片樣式 */
+.game-card {
+    background: #2d2d44;
+    padding: 25px 35px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+    min-width: 150px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-card:hover {
+    background: #3d3d5c;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.game-card-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.game-card-name {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+/* 分數顯示樣式 */
+.score-display {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px 25px;
+    text-align: center;
+    min-width: 150px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.score-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.score-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* 遊戲容器 */
+.game-container-base {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* 遊戲標題 */
+.game-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #4CAF50;
+}
+
+.game-subtitle {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* 控制面板 */
+.controls-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+/* 遊戲結束畫面 */
+.game-over-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    border-radius: 10px;
+}
+
+.game-over-title {
+    font-size: 3rem;
+    color: #ff3333;
+    margin-bottom: 20px;
+}
+
+.game-over-message {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+/* 開始畫面 */
+.start-screen-base {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.start-screen-title {
+    font-size: 4rem;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+}
+
+.start-screen-hint {
+    font-size: 1.2rem;
+    color: #FF9800;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 152, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2rem;
+    }
+    
+    .game-card {
+        padding: 20px 25px;
+        min-width: 120px;
+    }
+    
+    .controls-panel {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .start-screen-title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.8rem;
+    }
+    
+    .shared-btn {
+        padding: 10px 18px;
+        font-size: 1rem;
+    }
+    
+    .score-value {
+        font-size: 1.5rem;
+    }
+    
+    .start-screen-title {
+        font-size: 2.5rem;
+    }
+}

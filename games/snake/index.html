@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貪食蛇遊戲 - 增強版</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>貪食蛇遊戲 - 增強版</h1>
+        <p>控制蛇吃掉紅色蘋果，每吃一個蘋果蛇身就會變長</p>
+    </div>
+    
+    <div class="game-container">
+        <!-- 開始畫面 -->
+        <div class="start-screen" id="start-screen" role="dialog" aria-labelledby="game-title" aria-describedby="start-hint">
+            <h2 id="game-title">貪食蛇遊戲</h2>
+            <div class="instructions-list">
+                <p>遊戲說明：</p>
+                <ul>
+                    <li>使用鍵盤方向鍵 (↑, ↓, ←, →) 或 WASD 控制蛇的移動方向</li>
+                    <li>在手機上可以使用下方的方向按鈕</li>
+                    <li>蛇需要吃掉紅色蘋果來增加分數和長度</li>
+                    <li>避免撞到牆壁或自己的身體</li>
+                    <li>有三種難度可以選擇：簡單、中等、困難</li>
+                </ul>
+            </div>
+            <p class="key-hint" id="start-hint">按任意鍵或點擊畫面開始遊戲</p>
+        </div>
+        
+        <div class="game-info" role="status" aria-live="polite">
+            <div class="score-container" aria-label="當前分數">
+                <div>分數</div>
+                <div class="score-value" aria-live="polite">0</div>
+            </div>
+            <div class="high-score-container" aria-label="最高分數">
+                <div>最高分</div>
+                <div class="high-score-value">0</div>
+            </div>
+            <div class="difficulty-container" aria-label="當前難度">
+                <div>難度</div>
+                <div class="difficulty-value">中等</div>
+            </div>
+        </div>
+        
+        <div class="game-board">
+            <canvas id="game-canvas" width="600" height="400" aria-label="貪食蛇遊戲畫面" role="img">
+                <p>您的瀏覽器不支援 Canvas，請使用現代瀏覽器遊玩此遊戲。</p>
+            </canvas>
+            <div class="game-over" id="game-over" role="alert" aria-live="assertive">
+                <h2>Game Over</h2>
+                <div class="score-display">
+                    <p id="final-score" class="final-score-text">分數: <span class="score-value">0</span></p>
+                    <p id="final-high-score" class="final-high-score-text">最高分: <span class="high-score-value">0</span></p>
+                </div>
+                <div class="new-high-score" id="new-high-score" role="alert">新紀錄!</div>
+                <button id="restart-btn" aria-label="再玩一次遊戲">再玩一次</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="buttons">
+                <button id="start-btn" aria-label="開始遊戲">開始遊戲</button>
+                <button id="pause-btn" aria-label="暫停遊戲">暫停</button>
+            </div>
+            <div class="difficulty-buttons" role="group" aria-label="選擇遊戲難度">
+                <button class="difficulty-btn easy-btn active" data-difficulty="easy" aria-label="簡單難度">簡單</button>
+                <button class="difficulty-btn medium-btn" data-difficulty="medium" aria-label="中等難度">中等</button>
+                <button class="difficulty-btn hard-btn" data-difficulty="hard" aria-label="困難難度">困難</button>
+            </div>
+        </div>
+        
+        <div class="mobile-controls" role="group" aria-label="移動控制">
+            <button class="up" aria-label="向上移動">↑</button>
+            <button class="left" aria-label="向左移動">←</button>
+            <button class="right" aria-label="向右移動">→</button>
+            <button class="down" aria-label="向下移動">↓</button>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h2>遊戲說明</h2>
+        <ul>
+            <li>使用鍵盤方向鍵 (↑, ↓, ←, →) 或 WASD 控制蛇的移動方向</li>
+            <li>在手機上可以使用下方的方向按鈕</li>
+            <li>蛇需要吃掉紅色蘋果來增加分數和長度</li>
+            <li>避免撞到牆壁或自己的身體</li>
+            <li><strong>簡單模式</strong>: 初始速度慢，每次加速幅度小，得分乘數 1x</li>
+            <li><strong>中等模式</strong>: 初始速度中等，每次加速幅度中等，得分乘數 1.5x</li>
+            <li><strong>困難模式</strong>: 初始速度快，每次加速幅度大，得分乘數 2x，障礙物更多</li>
+            <li>每種難度都有獨立的最高分記錄</li>
+            <li>點擊「開始遊戲」按鈕開始，遊戲中可以暫停</li>
+        </ul>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
