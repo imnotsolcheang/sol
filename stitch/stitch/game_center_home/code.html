@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-Hant"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Game Center Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#4c3e00",
+              "tertiary": "#e9c400",
+              "inverse-primary": "#455f87",
+              "surface": "#131313",
+              "on-surface-variant": "#c4c6cf",
+              "tertiary-container": "#c9a900",
+              "on-tertiary-fixed": "#221b00",
+              "on-error-container": "#ffdad6",
+              "on-error": "#690005",
+              "surface-container": "#201f1f",
+              "error": "#ffb4ab",
+              "tertiary-fixed-dim": "#e9c400",
+              "surface-container-high": "#2a2a2a",
+              "error-container": "#93000a",
+              "surface-container-highest": "#353534",
+              "on-primary-fixed-variant": "#2d486d",
+              "on-tertiary-fixed-variant": "#544600",
+              "outline-variant": "#43474e",
+              "surface-tint": "#adc8f5",
+              "on-secondary-fixed": "#001f1f",
+              "on-tertiary": "#3a3000",
+              "secondary-container": "#00d2fd",
+              "inverse-surface": "#e5e2e1",
+              "on-secondary-container": "#005669",
+              "on-primary": "#133155",
+              "surface-variant": "#353534",
+              "surface-container-low": "#1c1b1b",
+              "surface-bright": "#393939",
+              "primary-fixed-dim": "#adc8f5",
+              "on-surface": "#e5e2e1",
+              "primary-fixed": "#d5e3ff",
+              "secondary": "#a2e7ff",
+              "surface-dim": "#131313",
+              "on-primary-container": "#8aa4cf",
+              "outline": "#8e9199",
+              "on-primary-fixed": "#001c3b",
+              "on-background": "#e5e2e1",
+              "on-secondary": "#003642",
+              "primary-container": "#1e3a5f",
+              "background": "#131313",
+              "inverse-on-surface": "#313030",
+              "surface-container-lowest": "#0e0e0e",
+              "secondary-fixed": "#b4ebff",
+              "secondary-fixed-dim": "#3cd7ff",
+              "on-secondary-fixed-variant": "#004e5f",
+              "primary": "#adc8f5",
+              "tertiary-fixed": "#ffe16d"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(53, 53, 52, 0.6);
+            backdrop-filter: blur(16px);
+        }
+        .cyan-glow {
+            box-shadow: 0 0 20px rgba(0, 210, 253, 0.15);
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(233, 196, 0, 0.15);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(30, 58, 95, 0.4) 0%, rgba(19, 19, 19, 1) 70%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-50 bg-surface dark:bg-[#131313] shadow-[0_4px_20px_rgba(0,0,0,0.5)] docked full-width top-0">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black tracking-tighter text-blue-400 dark:text-[#adc8f5] font-headline">[Sol]'s Game Center</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-['Inter'] text-sm uppercase tracking-widest text-cyan-400 dark:text-[#00d2fd] border-b-2 border-cyan-400 pb-1 transition-all duration-250 ease-in-out hover:bg-white/5" href="../../index.html">Home</a>
+<a class="font-['Inter'] text-sm uppercase tracking-widest text-slate-400 dark:text-[#c4c6cf] hover:text-white transition-all duration-250 ease-in-out hover:bg-white/5" href="../../index.html#games">Games</a>
+<a class="font-['Inter'] text-sm uppercase tracking-widest text-slate-400 dark:text-[#c4c6cf] hover:text-white transition-all duration-250 ease-in-out hover:bg-white/5" href="../../index.html#about">About</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-blue-400 dark:text-[#adc8f5] p-2 rounded-full hover:bg-white/5 transition-all">sports_esports</button>
+<button class="material-symbols-outlined text-blue-400 dark:text-[#adc8f5] p-2 rounded-full hover:bg-white/5 transition-all">account_circle</button>
+</div>
+<div class="bg-gradient-to-r from-transparent via-[#353534] to-transparent h-[1px] w-full absolute bottom-0"></div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative w-full h-[614px] flex flex-col items-center justify-center overflow-hidden hero-gradient">
+<div class="absolute inset-0 opacity-20 pointer-events-none" data-alt="Subtle dark carbon fiber pattern" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCyf6hGZZl5u68waBBKr7OYwRjSeKqSd569zbwp7rkJN4n2cE6OAUydt6yIC_G2te3GZyug_Y6ll0_KxW57OICHJuhYroEe3R2RqFMKflxxsj9-ruNUGdHRmre8ubK_nrEWY-jg5XU5zOVtA3tuPpNMPRCo_HlXHhVh9Qahg0Z6WNjDxqYw06ZQX8Rp9dAVOXeInRK6XG81FoIU6AT67uTLTsq5tEgVActXDsD4LXXJKdHw3C1XQzeF5ICRw8gRGUCl6m116sSKXA')"></div>
+<div class="relative z-10 text-center px-4">
+<h1 class="font-headline text-display-lg font-extrabold tracking-tighter text-on-surface mb-4" style="font-size: 3.5rem; letter-spacing: -0.04em;">
+                    經典遊戲，無限樂趣
+                </h1>
+<p class="font-body text-on-surface-variant max-w-2xl mx-auto text-lg leading-relaxed mb-8">
+                    在 [Sol] 的數位遊戲中心探索頂級的互動體驗。從懷舊經典到現代挑戰，每一款遊戲都經過精心打磨，為您帶來極致的感官享受。
+                </p>
+<div class="flex gap-4 justify-center">
+<button class="bg-secondary-container text-on-secondary px-8 py-3 rounded-md font-bold tracking-wide uppercase text-sm hover:scale-95 transition-transform flex items-center gap-2 shadow-[0_0_20px_rgba(0,212,253,0.25)]">
+                        立即開始遊玩 <span class="material-symbols-outlined">play_arrow</span>
+</button>
+<button class="border border-outline-variant/30 text-secondary px-8 py-3 rounded-md font-bold tracking-wide uppercase text-sm hover:bg-white/5 transition-all">
+                        了解更多
+                    </button>
+</div>
+</div>
+<!-- Asymmetrical Tech Elements -->
+<div class="absolute top-20 right-20 w-32 h-32 border-r-2 border-t-2 border-secondary/20 rounded-tr-3xl pointer-events-none"></div>
+<div class="absolute bottom-10 left-10 w-48 h-1 bg-gradient-to-r from-secondary/40 to-transparent pointer-events-none"></div>
+</section>
+<!-- Game Cards Grid -->
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="flex justify-between items-end mb-12">
+<div>
+<span class="font-label text-tertiary uppercase tracking-widest text-xs font-bold">Recommended</span>
+<h2 class="font-headline text-4xl font-bold tracking-tight text-on-surface mt-2">精選遊戲庫</h2>
+</div>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant/20 rounded hover:bg-surface-container-high text-on-surface-variant transition-all"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-2 border border-outline-variant/20 rounded hover:bg-surface-container-high text-on-surface-variant transition-all"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1: Snake Game -->
+<div class="bg-surface-container-low group relative flex flex-col w-full h-[450px] overflow-hidden rounded-lg transition-all duration-250 ease-in-out hover:scale-[1.02] hover:bg-surface-container-high cyan-glow">
+<div class="h-1/2 bg-surface-container-highest overflow-hidden">
+<img alt="Snake Game Thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Retro neon snake game visual with glowing paths" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt6jotM7UR1X4Bty9G3Zorp3Mq6VYEW8gShHapF_4EOxqo7tIloIMZMUWcN0ZDbT0E9TTSx61jp2DUx6zhA4WWlZyOVQ2JvN-qHiv0JyaHDZPBWSUErD_dGI3RPIyRa6eNOdolLI8dD_BgZXf9jZuAmGYs48wbHzcDFIZUtvsHqbTWMruUWH_VHzNFYc4SYbnEG56fYml1EdGDIucdVKCW6Fr1mlRa0HcDOpqgWSFO76NFY-OJnXrELGJmkzp1e_3scGpHBkmgTg"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-secondary font-headline text-2xl font-bold uppercase tracking-tighter">Snake Game</span>
+<div class="flex gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-secondary-fixed-dim/10 text-secondary-fixed-dim border border-secondary-fixed-dim/20">Medium</span>
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-secondary-fixed-dim/10 text-secondary-fixed-dim border border-secondary-fixed-dim/20">Action</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body text-sm mb-auto">經典貪食蛇遊戲增強版，挑戰你的反應極限與空間規劃能力。</p>
+<a href="../../game1.html" class="mt-6 w-full py-3 bg-secondary-container text-on-secondary font-bold uppercase tracking-widest text-xs flex justify-center items-center gap-2 group-hover:shadow-[0_0_15px_rgba(0,212,253,0.4)] transition-all">
+                            開始遊戲 <span class="material-symbols-outlined text-sm">rocket_launch</span>
+</a>
+</div>
+</div>
+<!-- Card 2: Sudoku -->
+<div class="bg-surface-container-low group relative flex flex-col w-full h-[450px] overflow-hidden rounded-lg transition-all duration-250 ease-in-out hover:scale-[1.02] hover:bg-surface-container-high gold-glow">
+<div class="h-1/2 bg-surface-container-highest overflow-hidden">
+<img alt="Sudoku Thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Geometric puzzle grid with glowing amber numbers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFAzGPeS5ryj6BB9l9WRG5TFAZM6FC0uRU70fnLapidMJd1wCUpPDmzhbO1dNSEo0ZT_QsLHcvuGXnUKf8gVGZCtx6Yc7s49p2fpzhPj5nuPvSpOKINNWLUD1YwHLhGITHCPOGVbYP5YmaIzeoxlpFTwnA6RVCO4bqo_ZVNYqrsCC-ybHP2sVXlhiPXukeXvKo1KahbKULK2gsoRNtQ2UeBu70Or-tMKiOKvOaWVzcdDJ3MQpd4cQ2_orozJD852M9d8JYdL3alQ"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-tertiary font-headline text-2xl font-bold uppercase tracking-tighter">Sudoku</span>
+<div class="flex gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim border border-tertiary-fixed-dim/20">Hard</span>
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim border border-tertiary-fixed-dim/20">Puzzle</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body text-sm mb-auto">經典數字邏輯遊戲。沉浸在純粹的邏輯思考中，鍛鍊大腦，解決高難度謎題。</p>
+<a href="../../game3.html" class="mt-6 w-full py-3 bg-tertiary text-on-tertiary font-bold uppercase tracking-widest text-xs flex justify-center items-center gap-2 group-hover:shadow-[0_0_15px_rgba(233,196,0,0.4)] transition-all">
+                            開始遊戲 <span class="material-symbols-outlined text-sm">psychology</span>
+</a>
+</div>
+</div>
+<!-- Card 3: 2048 -->
+<div class="bg-surface-container-low group relative flex flex-col w-full h-[450px] overflow-hidden rounded-lg transition-all duration-250 ease-in-out hover:scale-[1.02] hover:bg-surface-container-high cyan-glow">
+<div class="h-1/2 bg-surface-container-highest overflow-hidden">
+<img alt="2048 Thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Minimalist abstract blocks merging in space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1i6c_EwXIKyeBfkSpazsWw-meTeD28hkSMZOL4qn1ZC2kUwGVVbqOTbRp_ZPJPDHnl82lXYtmhT5nsDbnxdIFrAkSw_OLzUDlsD7rn4K43M-I9dICFSmlrJMiE4vNmZuJUFvh89fqTvvWV7JxzwUd5htnh4_HIhMjAf9Wv5WLUPOHjdpjmUC15u17ctPzbAELufSx2s5j5S7rRbV0_inE4m11VIpe0IZNcrDH4_tR_2-q3z-WY3n-72wCDHVbQbwN9NG4zfs2LQ"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-secondary font-headline text-2xl font-bold uppercase tracking-tighter">2048</span>
+<div class="flex gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-secondary-fixed-dim/10 text-secondary-fixed-dim border border-secondary-fixed-dim/20">Easy</span>
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-secondary-fixed-dim/10 text-secondary-fixed-dim border border-secondary-fixed-dim/20">Puzzle</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body text-sm mb-auto">滑動數字方塊合併遊戲。極簡風格下的成癮挑戰，你能達到 2048 嗎？</p>
+<a href="../../game2.html" class="mt-6 w-full py-3 bg-secondary-container text-on-secondary font-bold uppercase tracking-widest text-xs flex justify-center items-center gap-2 group-hover:shadow-[0_0_15px_rgba(0,212,253,0.4)] transition-all">
+                            開始遊戲 <span class="material-symbols-outlined text-sm">grid_view</span>
+</a>
+</div>
+</div>
+<!-- Card 4: Space Shooter -->
+<div class="bg-surface-container-low group relative flex flex-col w-full h-[450px] overflow-hidden rounded-lg transition-all duration-250 ease-in-out hover:scale-[1.02] hover:bg-surface-container-high gold-glow">
+<div class="h-1/2 bg-surface-container-highest overflow-hidden">
+<img alt="Space Shooter Thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Sci-fi starship cockpit view with glowing stars" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQpFhhsonr6kLzse-c5YfK0rgIQumeQnSBhju4-Tg9MySY3jHXs08kSbx4hAC2yBvfx8gWOco3YHom0JojWpwS54SMC9XH-H4OZAwNgib6GPeO24VV72CGKnbblOp5nx16YUR6cbJ_igLGjxWYIEO1cEbeYd4hts4Hci_ZFSAgwXwX4fQAh2DbMLKtf4_4zVkoqnCglDoWBIjP-c6x3-3ltFPRKNOGQGu-SlqAjyaaFUuQMcXQR9oVROdai_61BuexKNajOOddmQ"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-tertiary font-headline text-2xl font-bold uppercase tracking-tighter">Space Shooter</span>
+<div class="flex gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim border border-tertiary-fixed-dim/20">Hard</span>
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-tertiary-fixed-dim/10 text-tertiary-fixed-dim border border-tertiary-fixed-dim/20">Action</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body text-sm mb-auto">宇宙飛行射擊挑戰。在無盡的星海中對抗外星艦隊，升級你的戰機，成為王牌飛行員。</p>
+<a href="../../game4.html" class="mt-6 w-full py-3 bg-tertiary text-on-tertiary font-bold uppercase tracking-widest text-xs flex justify-center items-center gap-2 group-hover:shadow-[0_0_15px_rgba(233,196,0,0.4)] transition-all">
+                            開始遊戲 <span class="material-symbols-outlined text-sm">auto_awesome_motion</span>
+</a>
+</div>
+</div>
+<!-- Card 5: Fishing Game -->
+<div class="bg-surface-container-low group relative flex flex-col w-full h-[450px] overflow-hidden rounded-lg transition-all duration-250 ease-in-out hover:scale-[1.02] hover:bg-surface-container-high cyan-glow lg:col-span-1">
+<div class="h-1/2 bg-surface-container-highest overflow-hidden">
+<img alt="Fishing Game Thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Atmospheric deep sea scene with bioluminescent fish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqaENgZSjcy9kVeiyL8qRMLNoRC4ko4ah73NloGSap8HEzUnCn2oY4ejnw0YLbP6S71YbLaE_Pcz1j_Ijw1DnjYoDpSPorAHverk9ovGS_r1OgxWLEUOlPNhjoYkoi3ma1NQwPaWngkty2yK93iTIPLlONsHdIGsdcCAdPd76Kel3a8YGdVsYSqejaayGHbqgHOUTwAZj2QaRrNf1S9rG4Tb2mVNKn-tjbnFAfGHVYgbtKFgp9Y3QQ9xsF5_VaQCiPNBrpmVyohQ"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-secondary font-headline text-2xl font-bold uppercase tracking-tighter">Fishing Game</span>
+<div class="flex gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-secondary-fixed-dim/10 text-secondary-fixed-dim border border-secondary-fixed-dim/20">Easy</span>
+<span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-secondary-fixed-dim/10 text-secondary-fixed-dim border border-secondary-fixed-dim/20">Casual</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-body text-sm mb-auto">放鬆心情的釣魚時光。在寧靜的數位水域中捕捉稀有魚類，享受片刻的安寧。</p>
+<a href="../../game5.html" class="mt-6 w-full py-3 bg-secondary-container text-on-secondary font-bold uppercase tracking-widest text-xs flex justify-center items-center gap-2 group-hover:shadow-[0_0_15px_rgba(0,212,253,0.4)] transition-all">
+                            開始遊戲 <span class="material-symbols-outlined text-sm">water_drop</span>
+</a>
+</div>
+</div>
+<!-- Placeholder / Feature Card -->
+<div class="bg-surface-container-lowest border border-dashed border-outline-variant/30 group relative flex flex-col w-full h-[450px] overflow-hidden rounded-lg justify-center items-center text-center p-8">
+<div class="material-symbols-outlined text-6xl text-outline-variant mb-4">add_circle</div>
+<h3 class="font-headline text-xl font-bold text-outline-variant uppercase">更多遊戲開發中</h3>
+<p class="text-on-surface-variant/50 text-xs mt-2 uppercase tracking-widest">Coming Soon in 2025</p>
+</div>
+</div>
+</section>
+<!-- Stats Section (Bento Style) -->
+<section class="max-w-7xl mx-auto px-8 pb-24">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-lg border-l-4 border-secondary">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase">Platform Traffic</span>
+<div class="text-4xl font-headline font-bold mt-2">1.2M+</div>
+<p class="text-on-surface-variant text-sm mt-1">每月活躍玩家人數</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-lg">
+<span class="text-tertiary font-bold tracking-widest text-xs uppercase">Avg. Session</span>
+<div class="text-4xl font-headline font-bold mt-2">42m</div>
+<p class="text-on-surface-variant text-sm mt-1">平均遊玩時長</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-lg">
+<span class="text-outline-variant font-bold tracking-widest text-xs uppercase">Achievements</span>
+<div class="text-4xl font-headline font-bold mt-2">850k</div>
+<p class="text-on-surface-variant text-sm mt-1">已解鎖成就總數</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="flex flex-col items-center justify-center gap-4 w-full py-12 bg-[#1c1b1b] dark:bg-[#1c1b1b] border-t border-[#353534]/30">
+<div class="text-lg font-bold text-[#adc8f5] font-headline tracking-tighter uppercase">[Sol]'s Game Center</div>
+<div class="flex gap-8">
+<a class="font-['Inter'] text-xs text-[#c4c6cf] hover:text-white transition-opacity opacity-80 hover:opacity-100 uppercase tracking-widest" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-xs text-[#c4c6cf] hover:text-white transition-opacity opacity-80 hover:opacity-100 uppercase tracking-widest" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-xs text-[#c4c6cf] hover:text-white transition-opacity opacity-80 hover:opacity-100 uppercase tracking-widest" href="#">Support</a>
+</div>
+<div class="font-['Inter'] text-[10px] text-[#c4c6cf] opacity-60 mt-4 uppercase tracking-[0.2em]">
+            Copyright 2025, Created by Sol
+        </div>
+</footer>
+</body></html>

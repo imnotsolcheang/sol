@@ -1,141 +1,379 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sol Cheang</title>
+    <title>Sol's Game Center - 遊戲中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background: #1a1a2e;
-            color: white;
-            text-align: center;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 40px 20px;
         }
-        h1 { 
-            margin-bottom: 40px;
-            color: #4dabf7;
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
-        /* 分類樣式 */
-        .category {
+        header {
+            text-align: center;
             margin-bottom: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
         }
-        .category-title {
-            font-size: 1.5em;
-            color: #ffa94d;
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #a0a0ff;
             margin-bottom: 20px;
-            text-align: left;
-            border-bottom: 2px solid #3d3d5c;
-            padding-bottom: 10px;
+            max-width: 800px;
+            line-height: 1.6;
         }
         
-        /* 遊戲卡片樣式 */
-        .games-container {
+        .nav-buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-        }
-        .game-card {
-            background: #2d2d44;
-            padding: 25px 35px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: white;
-            transition: 0.3s;
-            min-width: 150px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .game-card:hover { 
-            background: #3d3d5c; 
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-        .icon { 
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        .game-name {
-            font-size: 1.1em;
+            margin-bottom: 40px;
+            width: 100%;
         }
         
-        /* 響應式設計 */
-        @media (max-width: 600px) {
-            .game-card {
-                padding: 20px 25px;
-                min-width: 120px;
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 200px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 219, 222, 0.5);
+        }
+        
+        .nav-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin-top: 30px;
+        }
+        
+        .game-card {
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(76, 201, 240, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(76, 201, 240, 0.5);
+        }
+        
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #4cc9f0;
+        }
+        
+        .game-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #72efdd;
+        }
+        
+        .game-desc {
+            color: #a5b4cb;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .play-btn {
+            background: linear-gradient(135deg, #4cc9f0, #4361ee);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .play-btn:hover {
+            background: linear-gradient(135deg, #3db8e0, #3550d9);
+            transform: scale(1.05);
+        }
+        
+        .main-page-link {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .main-btn {
+            background: linear-gradient(135deg, #ff9a00, #ff5252);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(255, 154, 0, 0.3);
+            text-decoration: none;
+        }
+        
+        .main-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 154, 0, 0.4);
+        }
+        
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            width: 100%;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
             }
-            .category-title {
-                text-align: center;
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-btn {
+                min-width: 150px;
+                padding: 15px 20px;
+            }
+            
+            .game-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <h1>🎮 Sol Cheang</h1>
-    
-    <!-- 經典遊戲分類 -->
-    <div class="category">
-        <h2 class="category-title">🎯 經典遊戲</h2>
-        <div class="games-container">
-            <a href="games/snake/index.html" class="game-card">
-                <div class="icon">🐍</div>
-                <div class="game-name">貪食蛇遊戲 (增強版)</div>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-gamepad"></i> Sol's Game Center</h1>
+            <p class="subtitle">歡迎來到 Sol 的遊戲中心！這裡集結了五款精心設計的 HTML5 遊戲，從經典到創新，從休閒到挑戰，滿足所有遊戲愛好者的需求。</p>
+            
+            <div class="nav-buttons">
+                <a href="#games" class="nav-btn">
+                    <i class="fas fa-dice"></i>
+                    <span>所有遊戲</span>
+                </a>
+                <a href="stitch/stitch/game_center_home/code.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>主頁面</span>
+                </a>
+                <a href="#about" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>關於</span>
+                </a>
+            </div>
+        </header>
+        
+        <section id="games" style="width: 100%;">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 30px; color: #72efdd;">遊戲列表</h2>
+            
+            <div class="game-grid">
+                <!-- Game 1: Snake -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-snake"></i>
+                    </div>
+                    <h3 class="game-title">貪食蛇遊戲</h3>
+                    <p class="game-desc">經典貪食蛇遊戲增強版，挑戰你的反應極限與空間規劃能力。控制蛇吃食物，避免撞牆或咬到自己！</p>
+                    <a href="game1.html" class="play-btn">
+                        <i class="fas fa-play"></i> 開始遊戲
+                    </a>
+                </div>
+                
+                <!-- Game 2: 2048 -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                    <h3 class="game-title">2048 數字遊戲</h3>
+                    <p class="game-desc">滑動數字方塊合併遊戲。極簡風格下的成癮挑戰，你能達到 2048 嗎？使用方向鍵移動方塊。</p>
+                    <a href="game2.html" class="play-btn">
+                        <i class="fas fa-play"></i> 開始遊戲
+                    </a>
+                </div>
+                
+                <!-- Game 3: Sudoku -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-border-all"></i>
+                    </div>
+                    <h3 class="game-title">數獨遊戲</h3>
+                    <p class="game-desc">經典數字邏輯遊戲。沉浸在純粹的邏輯思考中，鍛鍊大腦，解決高難度謎題。包含簡單、中等、困難三種難度。</p>
+                    <a href="game3.html" class="play-btn">
+                        <i class="fas fa-play"></i> 開始遊戲
+                    </a>
+                </div>
+                
+                <!-- Game 4: Space Shooter -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-space-shuttle"></i>
+                    </div>
+                    <h3 class="game-title">太空射擊遊戲</h3>
+                    <p class="game-desc">宇宙飛行射擊挑戰。在無盡的星海中對抗外星艦隊，升級你的戰機，成為王牌飛行員。使用方向鍵移動，空格鍵射擊。</p>
+                    <a href="game4.html" class="play-btn">
+                        <i class="fas fa-play"></i> 開始遊戲
+                    </a>
+                </div>
+                
+                <!-- Game 5: Fishing Game -->
+                <div class="game-card">
+                    <div class="game-icon">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h3 class="game-title">釣魚達人</h3>
+                    <p class="game-desc">放鬆心情的釣魚時光。在寧靜的數位水域中捕捉稀有魚類，享受片刻的安寧。升級裝備，成為釣魚大師！</p>
+                    <a href="game5.html" class="play-btn">
+                        <i class="fas fa-play"></i> 開始遊戲
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <div class="main-page-link">
+            <a href="stitch/stitch/game_center_home/code.html" class="main-btn">
+                <i class="fas fa-external-link-alt"></i>
+                前往精美主頁面
             </a>
-            <a href="game3.html" class="game-card">
-                <div class="icon">🔢</div>
-                <div class="game-name">數獨</div>
-            </a>
+            <p style="margin-top: 15px; color: #a5b4cb;">體驗更完整、更精美的遊戲中心介面</p>
         </div>
+        
+        <section id="about" style="width: 100%; margin-top: 50px; background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 15px;">
+            <h2 style="text-align: center; font-size: 2rem; margin-bottom: 20px; color: #ff9a00;">關於遊戲中心</h2>
+            <p style="text-align: center; color: #a5b4cb; line-height: 1.6; max-width: 800px; margin: 0 auto;">
+                這個遊戲中心由 Sol Cheang 開發，集結了五款不同類型的 HTML5 遊戲。所有遊戲都使用原生 JavaScript 和 Canvas 技術開發，
+                無需安裝任何插件即可在現代瀏覽器中遊玩。遊戲設計注重使用者體驗與視覺效果，提供流暢的遊戲體驗。
+            </p>
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 25px; flex-wrap: wrap;">
+                <div style="background: rgba(76, 201, 240, 0.1); padding: 15px; border-radius: 10px; text-align: center; min-width: 150px;">
+                    <div style="font-size: 2rem; color: #4cc9f0;">5</div>
+                    <div style="color: #a5b4cb;">款遊戲</div>
+                </div>
+                <div style="background: rgba(114, 239, 221, 0.1); padding: 15px; border-radius: 10px; text-align: center; min-width: 150px;">
+                    <div style="font-size: 2rem; color: #72efdd;">100%</div>
+                    <div style="color: #a5b4cb;">免費遊玩</div>
+                </div>
+                <div style="background: rgba(255, 154, 0, 0.1); padding: 15px; border-radius: 10px; text-align: center; min-width: 150px;">
+                    <div style="font-size: 2rem; color: #ff9a00;">0</div>
+                    <div style="color: #a5b4cb;">插件需求</div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2023 Sol Cheang 遊戲系列 | HTML5 遊戲中心 | 所有遊戲皆可免費遊玩</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">遊戲設計與開發：Sol Cheang | 技術：HTML5, CSS3, JavaScript, Canvas</p>
+        </footer>
     </div>
     
-    <!-- 益智遊戲分類 -->
-    <div class="category">
-        <h2 class="category-title">🧩 益智遊戲</h2>
-        <div class="games-container">
-            <a href="game2.html" class="game-card">
-                <div class="icon">🧮</div>
-                <div class="game-name">2048</div>
-            </a>
-        </div>
-    </div>
-    
-    <!-- 動作遊戲分類 -->
-    <div class="category">
-        <h2 class="category-title">⚡ 動作遊戲</h2>
-        <div class="games-container">
-            <a href="game4.html" class="game-card">
-                <div class="icon">🚀</div>
-                <div class="game-name">太空射擊遊戲</div>
-            </a>
-        </div>
-    </div>
-    
-    <!-- 休閒遊戲分類 -->
-    <div class="category">
-        <h2 class="category-title">🎲 休閒遊戲</h2>
-        <div class="games-container">
-            <a href="game5.html" class="game-card">
-                <div class="icon">🎣</div>
-                <div class="game-name">釣魚達人</div>
-            </a>
-        </div>
-    </div>
-    
-    <!-- 開發中遊戲 -->
-    <div class="category">
-        <h2 class="category-title">🔧 開發中遊戲</h2>
-        <div class="games-container">
-            <a href="#" class="game-card" style="opacity: 0.7;">
-                <div class="icon">🔄</div>
-                <div class="game-name">更多遊戲即將推出</div>
-            </a>
-        </div>
-    </div>
-
+    <script>
+        // 簡單的動畫效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+            
+            // 平滑滾動
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

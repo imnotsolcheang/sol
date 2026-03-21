@@ -500,10 +500,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 開始遊戲
     function startGame() {
+        console.log('startGame called');
+        console.log('startScreen element:', startScreen);
+        console.log('startScreen display before:', startScreen.style.display);
         if (!gameStarted) {
             // 隱藏開始畫面
-            startScreen.style.display = 'none';
+            startScreen.style.setProperty('display', 'none', 'important');
+            startScreen.hidden = true;
+            startScreen.style.visibility = 'hidden';
+            startScreen.style.opacity = '0';
             gameStarted = true;
+            console.log('startScreen display after:', startScreen.style.display);
         }
         
         if (!gameRunning) {
@@ -678,4 +685,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 顯示開始畫面
     startScreen.style.display = 'flex';
+    
+    // 測試用：3秒後自動顯示遊戲結束畫面
+    console.log('設定自動遊戲結束定時器');
+    setTimeout(() => {
+        console.log('定時器觸發');
+        if (typeof gameOver === 'function') {
+            console.log('自動觸發遊戲結束');
+            gameOver();
+        } else {
+            console.log('gameOver 不是函數');
+        }
+    }, 3000);
 });

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#3cd7ff",
+              "primary": "#002832",
+              "inverse-surface": "#2e3132",
+              "surface-container": "#edeeef",
+              "on-tertiary-fixed-variant": "#544600",
+              "surface-container-low": "#f3f4f5",
+              "primary-fixed": "#b4ebff",
+              "error-container": "#ffdad6",
+              "surface": "#f8f9fa",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-high": "#e7e8e9",
+              "on-tertiary-container": "#4c3e00",
+              "on-primary-container": "#00b2d6",
+              "error": "#ba1a1a",
+              "surface-variant": "#e1e3e4",
+              "tertiary-container": "#c9a900",
+              "tertiary-fixed": "#ffe16d",
+              "surface-container-highest": "#e1e3e4",
+              "background": "#f8f9fa",
+              "surface-tint": "#00677e",
+              "on-secondary-fixed-variant": "#2d486d",
+              "on-error": "#ffffff",
+              "secondary-container": "#b5d0fd",
+              "on-secondary-container": "#3e5980",
+              "secondary": "#455f87",
+              "on-tertiary-fixed": "#221b00",
+              "surface-bright": "#f8f9fa",
+              "on-primary-fixed": "#001f27",
+              "tertiary": "#705d00",
+              "on-background": "#191c1d",
+              "on-error-container": "#93000a",
+              "primary-fixed-dim": "#3cd7ff",
+              "on-primary-fixed-variant": "#004e5f",
+              "on-secondary-fixed": "#001c3b",
+              "surface-dim": "#d9dadb",
+              "secondary-fixed-dim": "#adc8f5",
+              "outline-variant": "#c4c6cf",
+              "tertiary-fixed-dim": "#e9c400",
+              "on-primary": "#ffffff",
+              "inverse-on-surface": "#f0f1f2",
+              "on-surface": "#191c1d",
+              "secondary-fixed": "#d5e3ff",
+              "outline": "#74777f",
+              "primary-container": "#003f4e",
+              "on-surface-variant": "#43474e",
+              "on-tertiary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Space Grotesk"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="w-full top-0 z-50 bg-[#f8f9fa] dark:bg-slate-900">
+<div class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#002832] dark:text-white">[Sol] 數位遊戲中心</span>
+<div class="hidden md:flex gap-6">
+<a class="text-[#00d4ff] border-b-2 border-[#00d4ff] pb-1 font-['Space_Grotesk'] font-medium tracking-tight" href="#">首頁</a>
+<a class="text-[#002832] opacity-80 hover:opacity-100 hover:text-[#00d4ff] transition-colors duration-200 font-['Space_Grotesk'] font-medium tracking-tight" href="#">遊戲列表</a>
+<a class="text-[#002832] opacity-80 hover:opacity-100 hover:text-[#00d4ff] transition-colors duration-200 font-['Space_Grotesk'] font-medium tracking-tight" href="#">關於我們</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="scale-95 active:scale-90 transition-transform p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[#002832]">search</span>
+</button>
+<button class="scale-95 active:scale-90 transition-transform p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[#002832]">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-8 py-12">
+<!-- Hero Section -->
+<section class="mb-20">
+<div class="flex flex-col md:flex-row items-end justify-between gap-8">
+<div class="max-w-2xl">
+<h1 class="text-7xl font-bold text-primary tracking-tighter leading-none mb-4">
+                        [Sol] <br/>
+<span class="text-on-primary-container">數位遊戲中心</span>
+</h1>
+<p class="text-2xl text-on-surface-variant font-medium">經典遊戲，無限樂趣.</p>
+</div>
+<div class="flex gap-4 mb-2">
+<div class="px-6 py-3 bg-surface-container-high rounded-xl border border-outline-variant/15">
+<span class="block text-xs font-bold tracking-widest text-on-surface-variant uppercase">伺服器狀態</span>
+<span class="flex items-center gap-2 text-primary font-bold">
+<span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                            線上
+                        </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+<div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-secondary mb-8">groups</span>
+<div>
+<h3 class="text-5xl font-bold text-primary tracking-tighter">1.2M</h3>
+<p class="text-on-surface-variant uppercase tracking-widest text-xs font-bold mt-2">每月活躍用戶</p>
+</div>
+</div>
+<div class="bg-primary text-white p-8 rounded-xl flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-on-primary-container mb-8">schedule</span>
+<div>
+<h3 class="text-5xl font-bold tracking-tighter">24m</h3>
+<p class="opacity-60 uppercase tracking-widest text-xs font-bold mt-2">平均遊玩時間</p>
+</div>
+</div>
+<div class="bg-tertiary-fixed p-8 rounded-xl flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-on-tertiary-fixed mb-8">military_tech</span>
+<div>
+<h3 class="text-5xl font-bold text-on-tertiary-fixed tracking-tighter">850K+</h3>
+<p class="text-on-tertiary-fixed-variant uppercase tracking-widest text-xs font-bold mt-2">累計解鎖成就</p>
+</div>
+</div>
+</section>
+<!-- Games Grid -->
+<section class="mb-24">
+<div class="flex items-center justify-between mb-12">
+<h2 class="text-3xl font-bold tracking-tight text-primary">精選遊戲庫</h2>
+<div class="h-px flex-grow mx-8 bg-outline-variant opacity-20"></div>
+<button class="text-sm font-bold uppercase tracking-widest text-on-primary-container flex items-center gap-2 hover:translate-x-1 transition-transform">
+                    查看全部 <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Snake Game -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden hover:translate-y-[-8px] transition-all duration-300">
+<div class="aspect-video w-full overflow-hidden">
+<img alt="貪食蛇遊戲" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="Retro neon snake game board visualization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWf9_PsupXThmi1qECFQrmtPf67C9RsVdEUrYPTYHcHtGowtNIAZ9zNygTKJmq7-CTRCI_DzV_7erYlj0YgyFcMoreZHWU0yLntIy4mP61k2bVH59vOmb5m0EZ39kcGL-s6jNolbY64o1rpGiwE9P7T7Tk37XlGeqbj1xiRGRzVYzPEM8Z1740d2NjPqzr1eHN81Qq5-pWO8-SirLuHhFYqwnuZ140ryp1wc9Z7uh4VvekcSSQp3a0Up1x0h6u-3WBcGEMCsM8aw"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-high rounded text-[10px] font-bold tracking-widest uppercase">經典街機</span>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">傳奇</span>
+</div>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-2">貪食蛇遊戲</h3>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed">經典貪食蛇遊戲增強版，控制蛇吃掉蘋果成長，避免撞牆或自身。</p>
+<button class="w-full py-4 bg-on-primary-container text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all active:scale-[0.98]">
+                            開始遊戲 <span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Sudoku -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden hover:translate-y-[-8px] transition-all duration-300">
+<div class="aspect-video w-full overflow-hidden">
+<img alt="數獨" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="Elegant wooden sudoku board with numbers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ixBdGA9gsOThE3YOpWBngAV119FONqpawRRFYFr1HRV_k85AnxGbT13JU7JsXUvdutFgoLnAOby1A53BVeZrOv6vsEVaIQicWpj408vQbhVf0rDdsLmVdEBEwPlP8Bfke7f1JGaHHX_ROpYXW7HH59FVoR5ayJ9hvYJptcL7CiujAjF7FBz6lWg0h2V1CbRi7775ibJ6j3xeqdE7jSwx5AkirKjOq4xmbWrm7u2S4IXPSJaUXU8lcq5i19yr-XB6B3szAE2hwQ"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-high rounded text-[10px] font-bold tracking-widest uppercase">益智</span>
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded text-[10px] font-bold tracking-widest uppercase">專家級</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-2">數獨</h3>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed">經典數字邏輯遊戲，填充 9x9 網格使每行、每列和每個 3x3 子網格包含 1-9 所有數字。</p>
+<button class="w-full py-4 bg-on-primary-container text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all active:scale-[0.98]">
+                            開始遊戲 <span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- 2048 -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden hover:translate-y-[-8px] transition-all duration-300">
+<div class="aspect-video w-full overflow-hidden">
+<img alt="2048" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="Digital grid with glowing numbered tiles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgmustX0a_5HFBv0D6hDI0WXy89WJU0LGd5KFOfYlEoLINHJcJ0zwAU90y3uyRdPGJgYcEACN-Hr7qFbJrhhqfYqZHg3S-YLPdcCGACamAuNxqDet3vGt7AAuLlUeGxyXYRlWbDFItwHpMrjqJ9fWR25tZE1dB-Z-7JY2AZ8_XQlGvs0Fc7Lb9-ZDOHjLMDnUukMs2I0cx5B4loB9P7fwqGVFR90orAUf-xa-SjDQbDQuINReH0MGpRWS8hirhcZ3nJl7yM8__Qw"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-high rounded text-[10px] font-bold tracking-widest uppercase">數學邏輯</span>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded text-[10px] font-bold tracking-widest uppercase">休閒</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-2">2048</h3>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed">滑動數字方塊合併遊戲，目標是創建 2048 方塊。</p>
+<button class="w-full py-4 bg-on-primary-container text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all active:scale-[0.98]">
+                            開始遊戲 <span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Space Shooter -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden hover:translate-y-[-8px] transition-all duration-300">
+<div class="aspect-video w-full overflow-hidden">
+<img alt="太空射擊遊戲" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="Futuristic space battle with laser effects" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_lNUi_tgLNMnF6shrYOC8taP_iAhiX2V8WauQ_Fd5r8ACCPi2MSjo2pjMi5Nyq58x09YpsWNOUETg5ZfXPElDZSosoAj4zpdF1vjKiMuybzHBWh9rPz6TvOoS-J8-pMzB99yvx7AyPs1vrUdtj-74DLqe1--ceQWoNwm0rLWmTPYjbszdNNrYdes2LSFc80U8A78v0lON7MvSp38m2DnDSp7usKPD7JVLLhJn4ciHLyj-XotlUoMfcWIpA_YHUTm3AdrYzcJ4rA"/>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-high rounded text-[10px] font-bold tracking-widest uppercase">動作</span>
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded text-[10px] font-bold tracking-widest uppercase">困難</span>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-2">太空射擊遊戲</h3>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed">宇宙飛行射擊挑戰。在無盡的星海中對抗外星艦隊，升級你的戰機，成為王牌飛行員。</p>
+<button class="w-full py-4 bg-on-primary-container text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all active:scale-[0.98]">
+                            開始遊戲 <span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Fishing Game -->
+<div class="group relative bg-surface-container-lowest rounded-xl overflow-hidden hover:translate-y-[-8px] transition-all duration-300 md:col-span-2">
+<div class="flex flex-col md:flex-row h-full">
+<div class="md:w-1/2 overflow-hidden">
+<img alt="釣魚遊戲" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="Serene underwater scene with vibrant fish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYowr4xMJ4vUi0su-0eUF4zfvRSZO1ikuyHEMZw-uP4h06rEO9LoxMfZwxCEYhEForsMkIWPYcAwZp6lDBcwI8qumfAC2hbPwHAGVidsuAxwKD4bcgNqm-OEy8TRGR4_4yfFMyBgQUaHjwHaFPKHNxK6eRgtsqGggYww8EmCkvhaSe4jEQNswRzHai84CFzqkrXjMVN2pHdkc5ZIQyfqTz6oKjxTrZHYq6SVXXw0oZKiAK4pbW_4tbW54ng3isIcLKV9h1giJHBg"/>
+</div>
+<div class="p-8 md:w-1/2 flex flex-col justify-center">
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-high rounded text-[10px] font-bold tracking-widest uppercase">模擬</span>
+<div class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded text-[10px] font-bold tracking-widest uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                                    獲取金幣
+                                </div>
+</div>
+<h3 class="text-3xl font-bold text-primary mb-4">釣魚遊戲</h3>
+<p class="text-on-surface-variant mb-8 leading-relaxed">放鬆心情的釣魚時光。在寧靜的數位水域中捕捉稀有魚類，享受片刻的安寧。</p>
+<button class="w-fit px-12 py-4 bg-on-primary-container text-white font-bold rounded-lg flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-all active:scale-[0.98]">
+                                開始遊戲 <span class="material-symbols-outlined">waves</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Community Section -->
+<section class="bg-surface-container-high rounded-xl p-12 flex flex-col md:flex-row items-center justify-between gap-12 mb-24 overflow-hidden relative">
+<div class="relative z-10">
+<h2 class="text-4xl font-bold tracking-tighter text-primary mb-4">加入精英競技場。</h2>
+<p class="text-on-surface-variant max-w-md">獲取新遊戲的早期體驗、錦標賽邀請以及直接發送到您收件箱的專屬數位收藏品。</p>
+</div>
+<div class="w-full md:w-auto flex flex-col sm:flex-row gap-4 relative z-10">
+<input class="px-6 py-4 bg-surface-container-lowest border-none rounded-lg w-full sm:w-80 focus:ring-2 focus:ring-primary-fixed font-bold tracking-widest text-xs uppercase" placeholder="輸入您的電子郵件" type="email"/>
+<button class="px-8 py-4 bg-primary text-white font-bold rounded-lg uppercase tracking-widest text-xs hover:bg-on-primary-container transition-colors">立即訂閱</button>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary-fixed/20 rounded-full blur-3xl"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#002832]/5 bg-[#f3f4f5] dark:bg-slate-950">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 gap-6 w-full max-w-7xl mx-auto">
+<div class="flex flex-col gap-2 items-center md:items-start">
+<span class="text-lg font-black text-[#002832] dark:text-slate-200">[Sol] 數位遊戲中心</span>
+<p class="font-['Space_Grotesk'] text-sm tracking-wide uppercase text-[#43474e] dark:text-slate-400 opacity-80">© 2025 [Sol] 數位遊戲中心。保留所有權利。</p>
+</div>
+<div class="flex gap-8">
+<a class="font-['Space_Grotesk'] text-sm tracking-wide uppercase text-[#43474e] hover:text-[#00d4ff] transition-all opacity-80 hover:opacity-100" href="#">技術支援</a>
+<a class="font-['Space_Grotesk'] text-sm tracking-wide uppercase text-[#43474e] hover:text-[#00d4ff] transition-all opacity-80 hover:opacity-100" href="#">隱私權政策</a>
+<a class="font-['Space_Grotesk'] text-sm tracking-wide uppercase text-[#43474e] hover:text-[#00d4ff] transition-all opacity-80 hover:opacity-100" href="#">服務條款</a>
+</div>
+<div class="flex gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface text-primary hover:bg-on-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined text-xl">share</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface text-primary hover:bg-on-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined text-xl">language</span>
+</button>
+</div>
+</div>
+</footer>
+</body></html>
